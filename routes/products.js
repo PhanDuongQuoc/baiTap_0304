@@ -3,7 +3,6 @@ var router = express.Router();
 let productModel = require('../schemas/product');
 let categoryModel = require('../schemas/category');
 
-// Lấy danh sách sản phẩm
 router.get('/', async function(req, res) {
   try {
     let products = await productModel.find().populate("category");
@@ -13,7 +12,6 @@ router.get('/', async function(req, res) {
   }
 });
 
-// Lấy sản phẩm theo ID
 router.get('/:id', async function(req, res) {
   try {
     let product = await productModel.findById(req.params.id).populate("category");
@@ -26,7 +24,6 @@ router.get('/:id', async function(req, res) {
   }
 });
 
-// Thêm mới sản phẩm (Slug tự động tạo)
 router.post('/', async function(req, res) {
   try {
     let category = await categoryModel.findOne({ name: req.body.category });
@@ -50,7 +47,6 @@ router.post('/', async function(req, res) {
   }
 });
 
-// Lấy sản phẩm theo slug của category
 router.get('/slug/:category', async function(req, res) {
   try {
     let category = await categoryModel.findOne({ slug: req.params.category });
@@ -65,7 +61,6 @@ router.get('/slug/:category', async function(req, res) {
   }
 });
 
-// Lấy sản phẩm theo slug của category và product
 router.get('/slug/:category/:product', async function(req, res) {
   try {
     let category = await categoryModel.findOne({ slug: req.params.category });
